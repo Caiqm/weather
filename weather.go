@@ -1,5 +1,10 @@
 package main
 
+/**
+ * auther: caiqm
+ * date: 2021-11-01
+ */
+
 import (
 	"bytes"
 	"encoding/json"
@@ -101,13 +106,13 @@ func getAccessToken() (token string, err error) {
 	file, err := os.Open(fileName)
 	if err != nil {
 		fmt.Println(err)
-		return 
+		return
 	}
 	// 读取文件内容
 	content, err := ioutil.ReadAll(file)
 	if err != nil {
 		fmt.Println(err)
-		return 
+		return
 	}
 	var atFile AccessTokenFile
 	// 读取文件信息
@@ -118,7 +123,7 @@ func getAccessToken() (token string, err error) {
 		// 重新获取token
 		tokenStruct, err = requestAccessToken()
 		if err != nil {
-			return 
+			return
 		}
 		token = tokenStruct.Token
 		return
@@ -174,7 +179,7 @@ func sendTemplate(openId, token string, data map[string]interface{}) (err error)
 	var templateRsp *http.Response
 	templateRsp, err = http.Post(templateUrl, "application/json", bytes.NewBuffer(jsonStr))
 	if err != nil {
-		return 
+		return
 	}
 	body, _ := ioutil.ReadAll(templateRsp.Body)
 	defer templateRsp.Body.Close()
